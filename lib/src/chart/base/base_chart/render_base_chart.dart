@@ -39,6 +39,8 @@ abstract class RenderBaseChart<R extends BaseTouchResponse> extends RenderBox
 
   late bool _validForMouseTracker;
 
+  late ScaleGestureRecognizer _scaleGestureRecognizer;
+
   /// Recognizes pan gestures, such as onDown, onStart, onUpdate, onCancel, ...
   late PanGestureRecognizer _panGestureRecognizer;
 
@@ -50,6 +52,16 @@ abstract class RenderBaseChart<R extends BaseTouchResponse> extends RenderBox
 
   /// Initializes our recognizers and implement their callbacks.
   void initGestureRecognizers() {
+    _scaleGestureRecognizer = ScaleGestureRecognizer()
+      ..onStart = (details) {
+        _notifyTouchEvent(FlScaleStartEvent(details));
+      }
+      ..onUpdate = (details) {
+        _notifyTouchEvent(FlScaleUpdateEvent(details));
+      }
+      ..onEnd = (details) {
+        _notifyTouchEvent(FlScaleEndEvent(details));
+      };
     _panGestureRecognizer = PanGestureRecognizer();
     _panGestureRecognizer
       ..onDown = (dragDownDetails) {
@@ -125,6 +137,7 @@ abstract class RenderBaseChart<R extends BaseTouchResponse> extends RenderBox
       _longPressGestureRecognizer.addPointer(event);
       _tapGestureRecognizer.addPointer(event);
       _panGestureRecognizer.addPointer(event);
+      _scaleGestureRecognizer.addPointer(event);
     } else if (event is PointerHoverEvent) {
       _notifyTouchEvent(FlPointerHoverEvent(event));
     }
