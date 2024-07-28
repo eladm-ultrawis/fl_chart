@@ -42,7 +42,7 @@ abstract class RenderBaseChart<R extends BaseTouchResponse> extends RenderBox
   late ScaleGestureRecognizer _scaleGestureRecognizer;
 
   /// Recognizes pan gestures, such as onDown, onStart, onUpdate, onCancel, ...
-  late PanGestureRecognizer _panGestureRecognizer;
+  // late PanGestureRecognizer _panGestureRecognizer;
 
   /// Recognizes tap gestures, such as onTapDown, onTapCancel and onTapUp
   late TapGestureRecognizer _tapGestureRecognizer;
@@ -62,23 +62,23 @@ abstract class RenderBaseChart<R extends BaseTouchResponse> extends RenderBox
       ..onEnd = (details) {
         _notifyTouchEvent(FlScaleEndEvent(details));
       };
-    _panGestureRecognizer = PanGestureRecognizer();
-    _panGestureRecognizer
-      ..onDown = (dragDownDetails) {
-        _notifyTouchEvent(FlPanDownEvent(dragDownDetails));
-      }
-      ..onStart = (dragStartDetails) {
-        _notifyTouchEvent(FlPanStartEvent(dragStartDetails));
-      }
-      ..onUpdate = (dragUpdateDetails) {
-        _notifyTouchEvent(FlPanUpdateEvent(dragUpdateDetails));
-      }
-      ..onCancel = () {
-        _notifyTouchEvent(const FlPanCancelEvent());
-      }
-      ..onEnd = (dragEndDetails) {
-        _notifyTouchEvent(FlPanEndEvent(dragEndDetails));
-      };
+    // _panGestureRecognizer = PanGestureRecognizer();
+    // _panGestureRecognizer
+    //   ..onDown = (dragDownDetails) {
+    //     _notifyTouchEvent(FlPanDownEvent(dragDownDetails));
+    //   }
+    //   ..onStart = (dragStartDetails) {
+    //     _notifyTouchEvent(FlPanStartEvent(dragStartDetails));
+    //   }
+    //   ..onUpdate = (dragUpdateDetails) {
+    //     _notifyTouchEvent(FlPanUpdateEvent(dragUpdateDetails));
+    //   }
+    //   ..onCancel = () {
+    //     _notifyTouchEvent(const FlPanCancelEvent());
+    //   }
+    //   ..onEnd = (dragEndDetails) {
+    //     _notifyTouchEvent(FlPanEndEvent(dragEndDetails));
+    //   };
 
     _tapGestureRecognizer = TapGestureRecognizer();
     _tapGestureRecognizer
@@ -136,7 +136,7 @@ abstract class RenderBaseChart<R extends BaseTouchResponse> extends RenderBox
     if (event is PointerDownEvent) {
       _longPressGestureRecognizer.addPointer(event);
       _tapGestureRecognizer.addPointer(event);
-      _panGestureRecognizer.addPointer(event);
+      // _panGestureRecognizer.addPointer(event);
       _scaleGestureRecognizer.addPointer(event);
     } else if (event is PointerHoverEvent) {
       _notifyTouchEvent(FlPointerHoverEvent(event));
